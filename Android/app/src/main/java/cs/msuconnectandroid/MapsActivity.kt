@@ -2,6 +2,7 @@ package cs.msuconnectandroid
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -9,6 +10,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import android.view.MenuInflater
+
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -40,4 +44,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in MSU Denver"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+
 }
