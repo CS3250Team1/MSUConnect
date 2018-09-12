@@ -1,3 +1,0 @@
-This should appear on my branch
-
-a double check.
