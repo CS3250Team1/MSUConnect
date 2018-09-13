@@ -42,7 +42,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(39.743064, -105.006219)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in MSU Denver"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val zoomLevel = 16.0f
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
