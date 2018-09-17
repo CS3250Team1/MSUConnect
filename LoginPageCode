@@ -1,6 +1,0 @@
-login_btn.setOnClickListener {
-            var status = if(username_et.text.toString().equals("shahriar") && password_et.text.toString().equals("password"))
-                "Logged in Successfully" else "Login fail"
-            Toast.makeText(this,status,Toast.LENGTH_SHORT).show()
-
-        }
