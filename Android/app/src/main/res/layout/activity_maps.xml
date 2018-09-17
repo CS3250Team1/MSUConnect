@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="cs.msuconnectandroid.Login"
+        android:name="cs.msuconnectandroid.Discover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

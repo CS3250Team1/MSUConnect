@@ -15,4 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/discover_arrays"
+        android:prompt="@string/discover_prompt" />
+
 </LinearLayout>
