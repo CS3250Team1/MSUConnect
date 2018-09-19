@@ -1,8 +1,10 @@
 package cs.msuconnectandroid
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -30,6 +32,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null) {
+            when {
+                item.itemId == R.id.discover -> {
+                    setContentView(R.layout.activity_discover);
+                }
+                item.itemId == R.id.logout -> {
+                    val intent = Intent(this@MapsActivity, Login::class.java)
+                    startActivity(intent)
+                }
+                item.itemId == R.id.profile -> {
+                    setContentView(R.layout.activity_profile);
+                }
+                item.itemId == R.id.settings -> {
+                    setContentView(R.layout.activity_settings);
+                }
+            }
+        }
+        return true
+    }
+
+
 
     /**
      * Manipulates the map once available.
