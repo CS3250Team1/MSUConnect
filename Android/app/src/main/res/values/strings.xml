@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MSUConnectAndroid</string>
     <string name="title_activity_maps">Map</string>
+    <string name="discover">Discover</string>
+    <string name="discover_prompt">Which College?</string>
+
+    <string-array name="discover_arrays">
+        <item>South Harmon Institute of Technology</item>
+        <item>Blue Mountain State</item>
+        <item>Greendale Community College</item>
+    </string-array>
 </resources>
