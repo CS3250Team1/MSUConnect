@@ -6,8 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -18,6 +21,26 @@ import kotlinx.android.synthetic.main.activity_login.*
 class Login :  BaseActivity(), View.OnClickListener {
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null) {
+            when {
+                item.itemId == R.id.discover -> {
+                    setContentView(R.layout.activity_discover);
+                }
+                item.itemId == R.id.profile -> {
+                    setContentView(R.layout.activity_profile);
+                }
+                item.itemId == R.id.settings -> {
+                    setContentView(R.layout.activity_settings);
+                }
+            }
+        }
+        return true
+    }
     // [START declare_auth]
     private lateinit var mAuth: FirebaseAuth
     // [END declare_auth]
