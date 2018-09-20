@@ -15,14 +15,19 @@
       },
       "oauth_client": [
         {
+          "client_id": "1046627723683-05p1ugk29rmhlq0lelai0egfhpsopsdn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cs.msuconnectandroid",
+            "certificate_hash": "0cddd840659b90e55dd8986b0a14ae7adbc9476d"
+          }
+        },
+        {
           "client_id": "1046627723683-bd4ac65mmaokol6sfosdqsqsqc84nas6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
-        {
-          "current_key": "AIzaSyCEkhtP19xG9osrU83VdH55tS4wrrxcPC0"
-        },
         {
           "current_key": "AIzaSyCEkhtP19xG9osrU83VdH55tS4wrrxcPC0"
         }
@@ -32,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046627723683-bd4ac65mmaokol6sfosdqsqsqc84nas6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
