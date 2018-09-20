@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -41,6 +42,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 item.itemId == R.id.logout -> {
                     val intent = Intent(this@MapsActivity, Login::class.java)
                     startActivity(intent)
+                    FirebaseAuth.getInstance().signOut()
                 }
                 item.itemId == R.id.profile -> {
                     setContentView(R.layout.activity_profile);
