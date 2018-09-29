@@ -127,9 +127,6 @@ class Login :  BaseActivity(), View.OnClickListener {
                     // [START_EXCLUDE]
                     if (!task.isSuccessful) {
                         status.setText(R.string.auth_failed)
-                    } else {
-                        val intent = Intent(this@Login, MapsActivity::class.java)
-                        startActivity(intent)
                     }
                     hideProgressDialog()
                     // [END_EXCLUDE]
@@ -195,6 +192,11 @@ class Login :  BaseActivity(), View.OnClickListener {
     private fun updateUI(user: FirebaseUser?) {
         hideProgressDialog()
         if (user != null) {
+
+            val intent = Intent(this@Login, MapsActivity::class.java)
+            startActivity(intent)
+
+
             status.text = getString(R.string.emailpassword_status_fmt,
                     user.email, user.isEmailVerified)
             detail.text = getString(R.string.firebase_status_fmt, user.uid)
