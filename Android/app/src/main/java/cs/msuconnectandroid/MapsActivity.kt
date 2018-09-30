@@ -12,15 +12,24 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
 
+    var mAuth = FirebaseAuth.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
+
+        if (null == mAuth.currentUser){
+            setContentView(R.layout.activity_login)
+        }else{
+            setContentView(R.layout.activity_maps)
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
@@ -41,6 +50,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 item.itemId == R.id.logout -> {
                     val intent = Intent(this@MapsActivity, Login::class.java)
                     startActivity(intent)
+                    FirebaseAuth.getInstance().signOut()
                 }
                 item.itemId == R.id.profile -> {
                     setContentView(R.layout.activity_profile);
