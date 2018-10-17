@@ -1,4 +1,4 @@
-# MSUConnect
+]# MSUConnect
 #### A Uni Social Application
 
 The MSUConnect application will make students more connected to their peers. With a tri-school commuter campus, it can be difficult to bring students together from semester to semester. This project aims to bridge that gap by connecting peers through a mobile friendly application or a website. There will be modular additions to the project which will give the project a wide breadth of options for my team to choose from.
@@ -9,6 +9,8 @@ campus events. Other data shared will be: if they are in a common area, a bitmoj
 ### Instructions on Docker
 1. ```docker build -t msuconnect .```
 2. ```docker run --name msuconnect msuconnect```
+
+asdasd
 
 #### Coding Resources
 - [Koitlin](https://kotlinlang.org/)
@@ -30,3 +32,10 @@ campus events. Other data shared will be: if they are in a common area, a bitmoj
 - Omar M.
 - Raymond O.
 - Rin I.
+
+Hello World
+
+
+
+
+

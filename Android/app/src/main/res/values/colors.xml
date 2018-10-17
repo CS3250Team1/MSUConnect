@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="background_material_light">#212121</color>
-    <color name="text_color_primary">#000000</color>
-    <color name="primary_material_light">#a37a01</color>
-    <color name="primary_dark_material_light">#000000</color>
-    <color name="accent_material_light">#3b3c3c</color>
-    <color name="primary_dark_material_dark">#303f9f</color>
-    <color name="accent_material_dark">#ff4081</color>
-    <color name="primary_material_dark">#3f51b5</color>
-    <color name="accent_material_light_1">#424242</color>
-    <color name="background_material_dark">#263238</color>
-    <color name="material_grey_300">#e0e0e0</color>
-    <color name="material_grey_100">#cfd8dc</color>
+
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_500">#9E9E9E</color>
+
+    <color name="colorCCDPrimary">#351453</color>
+    <color name="colorCCDStatus">#f5b94b</color>
+    <color name="colorCCDNavi">#c4b7d1</color>
+    <color name="colorMSUPrimary">#00457c</color>
+    <color name="colorMSUStatus">#d11242</color>
+    <color name="colorMSUNavi">#d3d3d3</color>
+    <color name="colorUCDPrimary">#cfb97d</color>
+    <color name="colorUCDStatus">#1e1e1e</color>
+    <color name="colorUCDNavi">#d3d3d3</color>
 </resources>

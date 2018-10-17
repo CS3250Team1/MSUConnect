@@ -4,6 +4,7 @@ package cs.msuconnectandroid
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
@@ -47,6 +48,9 @@ class Login :  BaseActivity(), View.OnClickListener {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.StyleCCD)
+        this.window.statusBarColor = ContextCompat.getColor(this, R.color.colorUCDStatus)
+        this.window.navigationBarColor = ContextCompat.getColor(this, R.color.colorUCDNavi)
         setContentView(R.layout.activity_login)
 
         // Buttons
