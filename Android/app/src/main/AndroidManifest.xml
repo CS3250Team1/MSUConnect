@@ -8,6 +8,10 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!--Originally added for Bitmoji Implementation by Austin Gailey, 10/22/2018 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -45,6 +49,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Bitmoji SDK Meta Tags  -->
+        <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="your app’s client id" />
+        <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="the url that will handle login completion" />
+        <meta-data android:name="com.snapchat.kit.sdk.scopes" android:resource="@array/snap_kit_scopes" /> <!-- This should be a string array of scopes !-->
+
+        <!-- Bitmoji Activity -->
+        <activity
+            android:name="com.snapchat.kit.sdk.SnapKitActivity"
+            android:launchMode="singleTask"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!--
+                    Enter the parts of your redirect url below
+                    e.g. if your redirect url is my-app://abc/xy/z
+                        android:scheme="my-app"
+                        android:host="abc"
+                        android:path="/xy/z"
+                !-->
+                <data
+                    android:scheme="msuconnect"
+                    android:host="msudenver.edu"
+                    android:path="/msuconnect/bitmojiData"
+                    />
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>
