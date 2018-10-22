@@ -38,6 +38,12 @@ class Login :  BaseActivity(), View.OnClickListener {
                 item.itemId == R.id.settings -> {
                     setContentView(R.layout.activity_settings);
                 }
+                item.itemId == R.id.maps -> {
+                    //setContentView(R.layout.activity_maps);
+                    val intent = Intent(this@Login, MapsActivity::class.java)
+                    startActivity(intent)
+                    setContentView(R.layout.activity_maps)
+                }
             }
         }
         return true
