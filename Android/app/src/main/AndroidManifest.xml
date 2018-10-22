@@ -29,7 +29,7 @@
 
         <activity
             android:name=".Login"
-            android:label="Login">
+            android:label="MSUConnect">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
