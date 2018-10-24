@@ -23,8 +23,6 @@ class Settings : Fragment() {
           Taken care of because the selections are in radio group*/
     }
 
-    fun profile(view : View){
-        //On click method for the link to profile button
 
-    }
+
 }

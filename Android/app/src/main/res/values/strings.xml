@@ -9,9 +9,6 @@
         <item>Blue Mountain State</item>
         <item>Greendale Community College</item>
     </string-array>
-
-<<<<<<< HEAD
-
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
 
@@ -102,7 +99,7 @@
         <item>Blue Mountain State</item>
         <item>Greendale Community College</item>
     </string-array>
-=======
+
     <string name="ProfileView_App_Name">MSUConnect Profile Page</string>
     <string name="ProfileView_Switch_Broadcast">Broadcast Location</string>
     <string name="ProfileView_FormTitle_Name">Name: </string>
@@ -113,5 +110,4 @@
     <string name="ProfileView_Form_StudyGroups">Study Groups List Lookup</string>
     <string name="ProfileView_Image_Content">Image of User</string>
 
->>>>>>> ProfileView_MBoykin
 </resources>
