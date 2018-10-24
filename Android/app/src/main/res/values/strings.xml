@@ -94,4 +94,11 @@
 
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
+
+    //BitMoji Scope Array
+    <string-array name="snap_kit_scopes">
+        <item>South Harmon Institute of Technology</item>
+        <item>Blue Mountain State</item>
+        <item>Greendale Community College</item>
+    </string-array>
 </resources>
