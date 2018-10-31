@@ -3,11 +3,19 @@ package cs.msuconnectandroid
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
-import android.support.v7.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.design.widget.NavigationView
+import android.support.v4.app.ActivityCompat
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,16 +24,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import android.support.v4.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.location.Location
-import android.util.Log
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
+class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
     private lateinit var mMap: GoogleMap
     // location stuff
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -35,14 +37,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
 
+    var mAuth = FirebaseAuth.getInstance()
+    var db = FirebaseFirestore.getInstance()
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        // 3
         private const val REQUEST_CHECK_SETTINGS = 2
     }
 
-    var mAuth = FirebaseAuth.getInstance()
-    var db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +53,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             setContentView(R.layout.activity_maps)
         }
-        setSupportActionBar(findViewById(R.id.my_toolbar))
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
+
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        nav_view.setNavigationItemSelectedListener(this)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -69,13 +84,77 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         createLocationRequest()
+
+    }
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null) {
+            when {
+                item.itemId == R.id.discover -> {
+                    setContentView(R.layout.activity_discover);
+                }
+                item.itemId == R.id.logout -> {
+                    val intent = Intent(this@MainActivity, Login::class.java)
+                    startActivity(intent)
+                    FirebaseAuth.getInstance().signOut()
+                }
+                item.itemId == R.id.profile -> {
+                    setContentView(R.layout.activity_profile);
+                }
+                item.itemId == R.id.settings -> {
+                    setContentView(R.layout.activity_settings);
+                }
+            }
+        }
+        return true
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_camera -> {
+                // Handle the camera action
+            }
+            R.id.nav_gallery -> {
+
+            }
+            R.id.nav_slideshow -> {
+
+            }
+            R.id.nav_manage -> {
+
+            }
+            R.id.nav_share -> {
+
+            }
+            R.id.nav_send -> {
+
+            }
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
     }
 
     // code to get current location
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-                return
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
         }
         mMap.isMyLocationEnabled = true;
         fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
@@ -131,8 +210,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 try {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
-                    e.startResolutionForResult(this@MapsActivity,
-                            REQUEST_CHECK_SETTINGS)
+                    e.startResolutionForResult(this@MainActivity,
+                            MainActivity.REQUEST_CHECK_SETTINGS)
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
                 }
@@ -140,10 +219,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    // 1
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CHECK_SETTINGS) {
+        if (requestCode == MainActivity.REQUEST_CHECK_SETTINGS) {
             if (resultCode == Activity.RESULT_OK) {
                 locationUpdateState = true
                 startLocationUpdates()
@@ -151,13 +229,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    // 2
     override fun onPause() {
         super.onPause()
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    // 3
     public override fun onResume() {
         super.onResume()
         if (!locationUpdateState) {
@@ -165,41 +241,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item != null) {
-            when {
-                item.itemId == R.id.discover -> {
-                    setContentView(R.layout.activity_discover);
-                }
-                item.itemId == R.id.logout -> {
-                    val intent = Intent(this@MapsActivity, Login::class.java)
-                    startActivity(intent)
-                    FirebaseAuth.getInstance().signOut()
-                }
-                item.itemId == R.id.profile -> {
-                    setContentView(R.layout.activity_profile);
-                }
-                item.itemId == R.id.settings -> {
-                    setContentView(R.layout.activity_settings);
-                }
-            }
-        }
-        return true
-    }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
@@ -210,4 +251,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(msu, zoomLevel))
         setUpMap()
     }
+
 }
+
