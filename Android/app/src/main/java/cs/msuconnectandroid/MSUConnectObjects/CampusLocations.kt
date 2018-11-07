@@ -1,10 +1,10 @@
-package cs.msuconnectandroid
+package cs.msuconnectandroid.MSUConnectObjects
 
 import com.google.android.gms.maps.model.LatLng
 
 // to obtain LatLng from here
 // https://www.latlong.net/
-class CampusLocations{
+object CampusLocations{
     // we need to add the other buildings + update the LatLng
     private val campusMap : HashMap<String, LatLng> = hashMapOf(
     "Tivoli" to LatLng(39.745140, -105.006030),                //"Tivoli"
