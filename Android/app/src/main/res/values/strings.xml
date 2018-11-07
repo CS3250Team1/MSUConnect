@@ -110,13 +110,18 @@
     <string name="ProfileView_Form_StudyGroups">Study Groups List Lookup</string>
     <string name="ProfileView_Image_Content">Image of User</string>
 
+    <string name="main_DrawerNav_Profile">Profile</string>
+    <string name="main_DrawerNav_Settings">Settings</string>
+    <string name="main_DrawerNav_Map">Map</string>
+
+    <string name="notDone">No Code Implemented</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">MSU Connect</string>
+    <string name="nav_header_subtitle">Need New Text Here</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 

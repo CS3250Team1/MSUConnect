@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.common.api.ResolvableApiException
@@ -68,6 +69,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
 
         nav_view.setNavigationItemSelectedListener(this)
 
+
+        /**supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.insertFrame, startWithMap())
+                .addToBackStack(null)
+                .commit()*/
+        if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
+        else Log.d("MRB", "Found map")
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
@@ -113,10 +123,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
                     FirebaseAuth.getInstance().signOut()
                 }
                 item.itemId == R.id.profile -> {
-                    setContentView(R.layout.activity_profile);
+                    setContentView(R.layout.fragment_profile);
                 }
                 item.itemId == R.id.settings -> {
-                    setContentView(R.layout.activity_settings);
+                    setContentView(R.layout.fragment_settings);
                 }
             }
         }
@@ -126,16 +136,26 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.main_DrawerNav_Profile -> {
                 // Handle the camera action
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.insertInScrollView, Profile())
+                        .addToBackStack(null)
+                        .commit()
             }
-            R.id.nav_gallery -> {
+            R.id.main_DrawerNav_Settings -> {
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.insertInScrollView, Settings())
+                        .addToBackStack(null)
+                        .commit()
+
+            }
+            R.id.main_DrawerNav_Map -> {
 
             }
             R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
 
             }
             R.id.nav_share -> {

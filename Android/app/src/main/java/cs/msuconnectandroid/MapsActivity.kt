@@ -183,10 +183,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     FirebaseAuth.getInstance().signOut()
                 }
                 item.itemId == R.id.profile -> {
-                    setContentView(R.layout.activity_profile);
+                    setContentView(R.layout.fragment_profile);
                 }
                 item.itemId == R.id.settings -> {
-                    setContentView(R.layout.activity_settings);
+                    setContentView(R.layout.fragment_settings);
                 }
             }
         }
