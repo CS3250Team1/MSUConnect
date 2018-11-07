@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.support.annotation.RawRes
 import android.util.Log
 import android.view.View
@@ -28,10 +29,19 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.Marker
 import java.util.*
 
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+    override fun onInfoWindowClick(p0: Marker?) {
+        if(p0 != null)
+        {
+            var eventID = p0.tag as Int
+            if(eventID > 0)
+                openURL(eventID.toString())
+        }
+    }
 
     private lateinit var mMap: GoogleMap
     // location stuff
@@ -209,8 +219,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return true
     }
 
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -237,10 +245,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 var randomList = (-2..2).shuffled()
                 var xOffset = randomList.first() / 10000.0
                 var yOffset = randomList.last() / 10000.0
-                mMap.addMarker(MarkerOptions().position(LatLng(eLatLng.latitude + xOffset, eLatLng.longitude + yOffset)).title(event.getTitle()))
+                var marker = mMap.addMarker(MarkerOptions().position(LatLng(eLatLng.latitude + xOffset, eLatLng.longitude + yOffset)).title(event.getTitle()))
+                marker.tag = event.getEventID()
+                mMap.setOnInfoWindowClickListener (this)
             }
         }
+
         setUpMap()
+    }
+
+    fun openURL(url : String)
+    {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://msudenver.edu/events/?trumbaEmbed=view%3Devent%26eventid%3D$url"))
+        startActivity(browserIntent)
     }
 
     fun Context.readRaw(@RawRes resourceId: Int): String {
