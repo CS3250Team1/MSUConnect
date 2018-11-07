@@ -33,10 +33,10 @@ class Login :  BaseActivity(), View.OnClickListener {
                     setContentView(R.layout.activity_discover);
                 }
                 item.itemId == R.id.profile -> {
-                    setContentView(R.layout.activity_profile);
+                    setContentView(R.layout.fragment_profile);
                 }
                 item.itemId == R.id.settings -> {
-                    setContentView(R.layout.activity_settings);
+                    setContentView(R.layout.fragment_settings);
                 }
                 item.itemId == R.id.maps -> {
                     //setContentView(R.layout.activity_maps);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cs.msuconnectandroid">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -8,9 +9,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!--Originally added for Bitmoji Implementation by Austin Gailey, 10/22/2018 -->
+    <!-- Originally added for Bitmoji Implementation by Austin Gailey, 10/22/2018 -->
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -19,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,33 +35,36 @@
         <activity
             android:name=".Login"
             android:label="MSUConnect">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".MapsActivity"
             android:label="Maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.APP_MAPS" />
-            </intent-filter>
         </activity>
 
-        <!-- Bitmoji SDK Meta Tags  -->
-        <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="your app’s client id" />
-        <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="the url that will handle login completion" />
-        <meta-data android:name="com.snapchat.kit.sdk.scopes" android:resource="@array/snap_kit_scopes" /> <!-- This should be a string array of scopes !-->
+        <!-- Bitmoji SDK Meta Tags -->
+        <meta-data
+            android:name="com.snapchat.kit.sdk.clientId"
+            android:value="your app’s client id" />
+        <meta-data
+            android:name="com.snapchat.kit.sdk.redirectUrl"
+            android:value="the url that will handle login completion" />
+        <meta-data
+            android:name="com.snapchat.kit.sdk.scopes"
+            android:resource="@array/snap_kit_scopes" /> <!-- This should be a string array of scopes ! -->
+
 
         <!-- Bitmoji Activity -->
         <activity
             android:name="com.snapchat.kit.sdk.SnapKitActivity"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!--
@@ -69,17 +73,25 @@
                         android:scheme="my-app"
                         android:host="abc"
                         android:path="/xy/z"
-                !-->
+                !
+                -->
                 <data
-                    android:scheme="msuconnect"
                     android:host="msudenver.edu"
                     android:path="/msuconnect/bitmojiData"
-                    />
+                    android:scheme="msuconnect" />
             </intent-filter>
-
         </activity>
 
->>>>>>> BitmojiAPI-Austin
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

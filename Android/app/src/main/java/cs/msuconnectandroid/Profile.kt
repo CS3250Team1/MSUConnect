@@ -2,9 +2,16 @@ package cs.msuconnectandroid
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Switch
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
+
 
 class Profile : Fragment() {
 
@@ -15,7 +22,17 @@ class Profile : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_profile, container, false)
+        //val switchStatus = activity?.findViewById<Switch>(R.id.switch1)
+        //setContentView(R.layout.activity_profile)
+        //val buttonPress: Button = findViewById(R.id.ProfileView_FormTitle_Interests)
+        val view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        view.ProfileView_FormTitle_Interests.setOnClickListener {
+            if(switch1.isChecked) textView6.visibility = View.GONE
+            else textView6.visibility = View.VISIBLE
+        }
+
+        return view
+
     }
 
 }
