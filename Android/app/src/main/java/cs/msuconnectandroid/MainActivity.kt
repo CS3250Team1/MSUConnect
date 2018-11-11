@@ -31,8 +31,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import cs.msuconnectandroid.R.id.drawer_layout
-import cs.msuconnectandroid.R.id.map
+import cs.msuconnectandroid.R.id.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -66,15 +65,6 @@ startWithMap.OnFragmentInteractionListener{
         }
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.insertFrame, startWithMap())
-                .commitNow()
-
-        supportFragmentManager
-                .beginTransaction()
-                .add(R.id.map, SupportMapFragment.newInstance())
-                .commitNow()
 
 
         setSupportActionBar(toolbar)
@@ -90,6 +80,7 @@ startWithMap.OnFragmentInteractionListener{
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        onNavigationItemSelected( nav_view.menu.getItem(2))
 
 
         if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
@@ -166,14 +157,19 @@ startWithMap.OnFragmentInteractionListener{
                         .replace(R.id.insertFrame, Settings())
                         .commit()
 
+
             }
             R.id.main_DrawerNav_Map -> {
-                /**supportFragmentManager
+                supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.insertFrame, startWithMap())
-                        .addToBackStack(null)
-                        .commit()
-                */
+                        .commitNow()
+
+                supportFragmentManager
+                        .beginTransaction()
+                        .add(R.id.map, SupportMapFragment.newInstance())
+                        .commitNow()
+
                 if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
                 else Log.d("MRB", "Found map")
             }
