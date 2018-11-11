@@ -5,15 +5,22 @@ import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.text.Layout
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewTreeObserver
+import bolts.Task.delay
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,10 +31,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import cs.msuconnectandroid.R.id.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback,
+        NavigationView.OnNavigationItemSelectedListener,
+startWithMap.OnFragmentInteractionListener{
     private lateinit var mMap: GoogleMap
     // location stuff
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -54,6 +64,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
             setContentView(R.layout.activity_maps)
         }
         setContentView(R.layout.activity_main)
+
+
+
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -67,6 +80,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        onNavigationItemSelected( nav_view.menu.getItem(2))
+
+
+        if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
+        else Log.d("MRB", "Found map")
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -130,20 +148,30 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
                 // Handle the camera action
                 supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.insertInScrollView, Profile())
-                        .addToBackStack(null)
+                        .replace(R.id.insertFrame, Profile())
                         .commit()
             }
             R.id.main_DrawerNav_Settings -> {
                 supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.insertInScrollView, Settings())
-                        .addToBackStack(null)
+                        .replace(R.id.insertFrame, Settings())
                         .commit()
+
 
             }
             R.id.main_DrawerNav_Map -> {
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.insertFrame, startWithMap())
+                        .commitNow()
 
+                supportFragmentManager
+                        .beginTransaction()
+                        .add(R.id.map, SupportMapFragment.newInstance())
+                        .commitNow()
+
+                if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
+                else Log.d("MRB", "Found map")
             }
             R.id.nav_slideshow -> {
 
@@ -179,6 +207,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
     }
 
     private fun startLocationUpdates() {
+
         //1
         if (ActivityCompat.checkSelfPermission(this,
                         android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -189,6 +218,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
         }
         //2
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null /* Looper */)
+
     }
 
     private fun createLocationRequest() {
@@ -262,4 +292,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
         setUpMap()
     }
 
+    override fun onFragmentInteraction(uri: Uri) {
+        Log.d("MRB", "Listening to Fragments")
+    }
 }
