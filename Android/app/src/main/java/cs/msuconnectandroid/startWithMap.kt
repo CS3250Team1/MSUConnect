@@ -4,15 +4,24 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.TextView
+import com.google.android.gms.dynamic.SupportFragmentWrapper
+import com.google.android.gms.maps.MapFragment
+import com.google.android.gms.maps.SupportMapFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+/**
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+*/
 
 /**
  * A simple [Fragment] subclass.
@@ -33,7 +42,16 @@ class startWithMap : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.content_main, container, false)
+        var view: View = inflater.inflate(R.layout.content_main, container, false)
+
+
+        childFragmentManager
+                .beginTransaction()
+                .replace(R.id.map, SupportMapFragment.newInstance())
+                .commitNow()
+        //view: View = inflater.inflate(R.id.)
+        //
+        return view
 
     }
 
@@ -90,13 +108,15 @@ class startWithMap : Fragment() {
          * @return A new instance of fragment startWithMap.
          */
         // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                startWithMap().apply {
+        //@JvmStatic
+        fun newInstance() : startWithMap {
+            return startWithMap()//param1: String, param2: String
+        }
+                /**startWithMap().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)
                     }
-                }
+                }*/
     }
 }
