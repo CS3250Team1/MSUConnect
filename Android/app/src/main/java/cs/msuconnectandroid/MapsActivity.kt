@@ -1,6 +1,8 @@
 package cs.msuconnectandroid
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.support.v7.app.AppCompatActivity
@@ -20,13 +22,28 @@ import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
+import android.net.Uri
+import android.support.annotation.RawRes
 import android.util.Log
+import android.view.View
+import android.webkit.WebSettings
+import android.webkit.WebView
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.PolygonOptions
+import com.google.android.gms.maps.model.Marker
+import java.util.*
 
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+    override fun onInfoWindowClick(p0: Marker?) {
+        if(p0 != null)
+        {
+            var eventID = p0.tag as Int
+            if(eventID > 0)
+                openURL(eventID.toString())
+        }
+    }
 
     private lateinit var mMap: GoogleMap
     // location stuff
@@ -36,6 +53,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
+    private lateinit var mEvents: List<CampusEvent>
+
+    private lateinit var mHtml : String
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -46,14 +66,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var mAuth = FirebaseAuth.getInstance()
     var db = FirebaseFirestore.getInstance()
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (mAuth.currentUser == null) {
             setContentView(R.layout.activity_login)
         } else {
             setContentView(R.layout.activity_maps)
         }
         setSupportActionBar(findViewById(R.id.my_toolbar))
+
+        // OM
+        var locations = CampusLocations()
+        var scraper = CalendarScrapper()
+        mEvents = scraper.getEvents(readRaw(R.raw.msu_event), locations)
+        // ~ OM
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -67,7 +95,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 lastLocation = p0.lastLocation
                 val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
         createLocationRequest()
@@ -79,7 +107,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
                 return
         }
-        mMap.isMyLocationEnabled = true;
+        mMap.isMyLocationEnabled = true
         fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
             // Got last known location. In some rare situations this can be null.
             // 3
@@ -269,7 +297,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(msu).title("Marker in MSU Denver"))
         val zoomLevel = 16.0f
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(msu, zoomLevel))
+
+        for(event in mEvents)
+        {
+            var eLatLng = event.getLatLng()
+            if(eLatLng != null)
+            {
+                var randomList = (-2..2).shuffled()
+                var xOffset = randomList.first() / 10000.0
+                var yOffset = randomList.last() / 10000.0
+                var marker = mMap.addMarker(MarkerOptions().position(LatLng(eLatLng.latitude + xOffset, eLatLng.longitude + yOffset)).title(event.getTitle()))
+                marker.tag = event.getEventID()
+                mMap.setOnInfoWindowClickListener (this)
+            }
+        }
+
         setUpMap()
 
+    }
+
+    fun openURL(url : String)
+    {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://msudenver.edu/events/?trumbaEmbed=view%3Devent%26eventid%3D$url"))
+        startActivity(browserIntent)
+    }
+
+    fun Context.readRaw(@RawRes resourceId: Int): String {
+        return resources.openRawResource(resourceId).bufferedReader(Charsets.UTF_8).use { it.readText() }
     }
 }
