@@ -16,10 +16,24 @@
         android:layout_height="wrap_content" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/DiscoverMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/discover_arrays"
         android:prompt="@string/discover_prompt" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>

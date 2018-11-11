@@ -1,9 +1,13 @@
 package cs.msuconnectandroid.MSUConnectObjects
 
+import com.google.firebase.auth.FirebaseUser
+
 data class User(var name : String) {
 
-    lateinit var email       : String
-    lateinit var classes     : List<String>
-    lateinit var Groups      : List<Group>
+    lateinit var firebaseUser   : FirebaseUser
+    lateinit var email          : String
+    lateinit var groups         : List<Group>
+
+
 
 }

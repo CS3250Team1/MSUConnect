@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
                     .setAction("Action", null).show()
         }
 
+
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -251,6 +252,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(msu, zoomLevel))
         setUpMap()
     }
+
 
 }
 
