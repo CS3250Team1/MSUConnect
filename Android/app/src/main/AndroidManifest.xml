@@ -9,7 +9,6 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!-- Originally added for Bitmoji Implementation by Austin Gailey, 10/22/2018 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
