@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
                     .setAction("Action", null).show()
         }
 
-
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -114,10 +113,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
                     FirebaseAuth.getInstance().signOut()
                 }
                 item.itemId == R.id.profile -> {
-                    setContentView(R.layout.activity_profile);
+                    setContentView(R.layout.fragment_profile);
                 }
                 item.itemId == R.id.settings -> {
-                    setContentView(R.layout.activity_settings);
+                    setContentView(R.layout.fragment_settings);
                 }
             }
         }
@@ -127,16 +126,26 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.main_DrawerNav_Profile -> {
                 // Handle the camera action
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.insertInScrollView, Profile())
+                        .addToBackStack(null)
+                        .commit()
             }
-            R.id.nav_gallery -> {
+            R.id.main_DrawerNav_Settings -> {
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.insertInScrollView, Settings())
+                        .addToBackStack(null)
+                        .commit()
+
+            }
+            R.id.main_DrawerNav_Map -> {
 
             }
             R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
 
             }
             R.id.nav_share -> {
@@ -253,6 +262,4 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnN
         setUpMap()
     }
 
-
 }
-
