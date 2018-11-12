@@ -3,11 +3,15 @@ package cs.msuconnectandroid
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
-import android.support.v7.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,12 +20,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import android.support.v4.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.location.Location
-import android.util.Log
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -69,6 +67,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         createLocationRequest()
+
+
     }
 
     // code to get current location
@@ -77,7 +77,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
                 return
         }
-        mMap.isMyLocationEnabled = true;
+        mMap.isMyLocationEnabled = true
+
         fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
             // Got last known location. In some rare situations this can be null.
             // 3
@@ -139,6 +140,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
+
 
     // 1
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
