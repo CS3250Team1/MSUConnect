@@ -20,6 +20,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.Toolbar
 import bolts.Task.delay
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -34,13 +35,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import cs.msuconnectandroid.R.id.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback,
-        NavigationView.OnNavigationItemSelectedListener,
-startWithMap.OnFragmentInteractionListener{
+class MainActivity : AppCompatActivity(), OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener, startWithMap.OnFragmentInteractionListener{
+    // mMap initialization
     private lateinit var mMap: GoogleMap
-    // location stuff
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+    // location variables
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1 // request code 1:
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
     private lateinit var locationCallback: LocationCallback
@@ -55,56 +56,58 @@ startWithMap.OnFragmentInteractionListener{
         private const val REQUEST_CHECK_SETTINGS = 2
     }
 
-
+    // Activity cycle - OnCreate Method loads when Activity is ready
     override fun onCreate(savedInstanceState: Bundle?) {
+        // restore savedInstanceState
         super.onCreate(savedInstanceState)
-        if (mAuth.currentUser == null) {
-            setContentView(R.layout.activity_login)
-        } else {
-            setContentView(R.layout.activity_maps)
-        }
+        // if user is not authenticated redirect to Login Activity, else load Main Activity
+//        if (mAuth.currentUser == null) {
+//            val intent = Intent(this, Login::class.java)
+//            startActivity(intent)
+////            setContentView(R.layout.activity_login)
+//        } else {
+//            setContentView(R.layout.activity_main)
+//        }
+
         setContentView(R.layout.activity_main)
 
 
-
+        // Set Action bar (top nav bar) to toolbar in resources
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
+        // Set toggle functionality for Side Nav Bar. Allows side nav bar to collapse/expand
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
+
+        this.drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
+        // Set Side Nav Bar item selected listener. Allows functions to perform when item in nav side bar is selected
         nav_view.setNavigationItemSelectedListener(this)
-        onNavigationItemSelected( nav_view.menu.getItem(2))
+        onNavigationItemSelected( nav_view.menu.getItem(2)) // TODO: what is index 2?
 
-
+        // Log map fragment status. Use this for debugging
+        // TODO: REMOVE in production
         if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
         else Log.d("MRB", "Found map")
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        this.map.getMapAsync(this)
 
+        // Enable location services
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
-
                 lastLocation = p0.lastLocation
                 val currentLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                // DO NOT ZOOM INTO YOUR LOCATION
+//                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
         createLocationRequest()
-
     }
 
+    // Android back button action
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -113,76 +116,77 @@ startWithMap.OnFragmentInteractionListener{
         }
     }
 
+    // Set up Top Nav Bar menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
+    // Top Nav Bar item actions
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item != null) {
-            when {
-                item.itemId == R.id.discover -> {
-                    setContentView(R.layout.activity_discover);
-                }
-                item.itemId == R.id.logout -> {
-                    val intent = Intent(this@MainActivity, Login::class.java)
-                    startActivity(intent)
-                    FirebaseAuth.getInstance().signOut()
-                }
-                item.itemId == R.id.profile -> {
-                    setContentView(R.layout.fragment_profile);
-                }
-                item.itemId == R.id.settings -> {
-                    setContentView(R.layout.fragment_settings);
-                }
-            }
+//            when {
+//                item.itemId == R.id.discover -> {
+//                    setContentView(R.layout.activity_discover);
+//                }
+//                item.itemId == R.id.logout -> {
+//                    val intent = Intent(this@MainActivity, Login::class.java)
+//                    startActivity(intent)
+//                    FirebaseAuth.getInstance().signOut()
+//                }
+//                item.itemId == R.id.profile -> {
+//                    setContentView(R.layout.fragment_profile);
+//                }
+//                item.itemId == R.id.settings -> {
+//                    setContentView(R.layout.fragment_settings);
+//                }
+//            }
         }
         return true
     }
 
+    // Side Nav Bar actions
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.main_DrawerNav_Profile -> {
-                // Handle the camera action
-                supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.insertFrame, Profile())
-                        .commit()
-            }
-            R.id.main_DrawerNav_Settings -> {
-                supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.insertFrame, Settings())
-                        .commit()
-
-
-            }
-            R.id.main_DrawerNav_Map -> {
-                supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.insertFrame, startWithMap())
-                        .commitNow()
-
-                supportFragmentManager
-                        .beginTransaction()
-                        .add(R.id.map, SupportMapFragment.newInstance())
-                        .commitNow()
-
-                if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
-                else Log.d("MRB", "Found map")
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
+//        when (item.itemId) {
+//            R.id.main_DrawerNav_Profile -> {
+//                // TODO:
+//                supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.content_main, Profile())
+//                        .commit()
+//            }
+//            R.id.main_DrawerNav_Settings -> {
+//                supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.content_main, Settings())
+//                        .commit()
+//            }
+//            // TODO: Check for errors in supportFragmentManager
+//            R.id.main_DrawerNav_Map -> {
+//                supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.content_main, startWithMap())
+//                        .commitNow()
+//                supportFragmentManager
+//                        .beginTransaction()
+//                        .add(R.id.map, SupportMapFragment.newInstance())
+//                        .commitNow()
+//
+//                if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
+//                else Log.d("MRB", "Found map")
+//            }
+//            R.id.nav_slideshow -> {
+//
+//            }
+//            R.id.nav_share -> {
+//
+//            }
+//            R.id.nav_send -> {
+//
+//            }
+//        }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
