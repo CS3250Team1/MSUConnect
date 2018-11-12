@@ -34,6 +34,14 @@ class CampusLocations{
     "Annex" to  LatLng(39.746900, -105.000010))                //"CU Building Annex"
 
     public fun getLocation(name: String): LatLng? {
-        return campusMap[name]
+        var returnVal = campusMap[name]
+        if(returnVal == null)
+            for(latLng in campusMap)
+            {
+                if(name.contains(latLng.key))
+                    return latLng.value
+            }
+        else return campusMap[name]
+        return null
     }
 }
