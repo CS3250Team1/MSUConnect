@@ -315,8 +315,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 
     }
 
-    fun openURL(url : String)
-    {
+    fun openURL(url : String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://msudenver.edu/events/?trumbaEmbed=view%3Devent%26eventid%3D$url"))
         startActivity(browserIntent)
     }

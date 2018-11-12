@@ -124,5 +124,8 @@
     <string name="nav_header_subtitle">Need New Text Here</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="title_home">home</string>
+    <string name="title_dashboard">dashboard</string>
+    <string name="title_notifications">notifications</string>
 
 </resources>

@@ -199,13 +199,13 @@ class Login :  BaseActivity(), View.OnClickListener {
         return valid
     }
 
+    // update the UI after sign in attempt. redirect to main activity if authorized
     private fun updateUI(user: FirebaseUser?) {
         hideProgressDialog()
         if (user != null) {
-
-            val intent = Intent(this@Login, MapsActivity::class.java)
+            // switch activity to main activity
+            val intent = Intent(this@Login, MainActivity::class.java)
             startActivity(intent)
-
 
             status.text = getString(R.string.emailpassword_status_fmt,
                     user.email, user.isEmailVerified)
