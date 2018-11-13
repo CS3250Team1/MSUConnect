@@ -14,8 +14,8 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constrainedHeight="true"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toTopOf="@+id/Guideline-median"
@@ -83,35 +83,57 @@
 
     </android.support.design.widget.BottomNavigationView>
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="328dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="OUTPUT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        tools:layout_editor_absoluteY="328dp" />
+
     <!--<com.google.android.gms.maps.MapView-->
-        <!--android:id="@+id/map"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="263dp" />-->
+    <!--android:id="@+id/map"-->
+    <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="263dp" />-->
 
     <!--<android.support.constraint.Guideline-->
-        <!--android:id="@+id/guideline2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--app:layout_constraintGuide_begin="268dp" />-->
+    <!--android:id="@+id/guideline2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--app:layout_constraintGuide_begin="268dp" />-->
 
     <!--<ScrollView-->
-        <!--android:id="@+id/scrollView2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="173dp"-->
-        <!--android:layout_marginTop="120dp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.578"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/guideline2">-->
+    <!--android:id="@+id/scrollView2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="173dp"-->
+    <!--android:layout_marginTop="120dp"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.578"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/guideline2">-->
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/insertInScrollView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical" />-->
+    <!--<LinearLayout-->
+    <!--android:id="@+id/insertInScrollView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical" />-->
     <!--</ScrollView>-->
 
 

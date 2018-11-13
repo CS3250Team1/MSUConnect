@@ -51,6 +51,9 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
         NavigationView.OnNavigationItemSelectedListener {
+
+
+
     override fun onInfoWindowClick(p0: Marker?) {
         if(p0 != null)
         {
@@ -92,6 +95,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 //            setContentView(R.layout.activity_main)
 //        }
 
+        listenMessages()
         setContentView(R.layout.activity_main)
         setSupportActionBar(this.toolbar)
         val toggle = ActionBarDrawerToggle(
@@ -396,4 +400,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
     fun Context.readRaw(@RawRes resourceId: Int): String {
         return resources.openRawResource(resourceId).bufferedReader(Charsets.UTF_8).use { it.readText() }
     }
+
+    private fun listenMessages() {
+        db.collection("Maps")
+                .addSnapshotListener { documentSnapshot, error ->
+                    if (error != null) {
+                        //Manage error
+                    } else if (documentSnapshot != null) {
+                        //Manage our documentSnapshot
+                    }
+                }
+    }
+
+
 }
