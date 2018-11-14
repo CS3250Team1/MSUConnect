@@ -42,11 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MapsActivity"
-            android:label="Maps">
-        </activity>
-
         <!-- Bitmoji SDK Meta Tags -->
         <meta-data
             android:name="com.snapchat.kit.sdk.clientId"

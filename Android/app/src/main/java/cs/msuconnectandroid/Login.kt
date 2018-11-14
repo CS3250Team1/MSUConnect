@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 
+
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -33,16 +34,18 @@ class Login :  BaseActivity(), View.OnClickListener {
                     setContentView(R.layout.activity_discover);
                 }
                 item.itemId == R.id.profile -> {
-                    setContentView(R.layout.fragment_profile);
+//                    TODO: implement profile supportfragment manager
+//                    setContentView(R.layout.fragment_profile);
                 }
                 item.itemId == R.id.settings -> {
-                    setContentView(R.layout.fragment_settings);
+                    // TODO: implement settings supportFragmentManager
+//                    setContentView(R.layout.fragment_settings);
                 }
                 item.itemId == R.id.maps -> {
                     //setContentView(R.layout.activity_maps);
-                    val intent = Intent(this@Login, MapsActivity::class.java)
+                    val intent = Intent(this@Login, MainActivity::class.java)
                     startActivity(intent)
-                    setContentView(R.layout.activity_maps)
+                    setContentView(R.layout.activity_main)
                 }
             }
         }

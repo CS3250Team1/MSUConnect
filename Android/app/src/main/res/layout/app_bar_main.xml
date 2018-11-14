@@ -22,39 +22,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/insertFrame"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">-->
-    <!--</FrameLayout>-->
-
     <include layout="@layout/content_main" />
-
-
-
-    <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/bottomNavigationView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="55dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:menu="@menu/main_menu">-->
-
-        <!--&lt;!&ndash;<android.support.design.widget.FloatingActionButton&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/fab"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_gravity="bottom|end"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_margin="@dimen/fab_margin"&ndash;&gt;-->
-            <!--&lt;!&ndash;app:srcCompat="@android:drawable/ic_dialog_email"&ndash;&gt;-->
-            <!--&lt;!&ndash;/>&ndash;&gt;-->
-
-    <!--</android.support.design.widget.BottomNavigationView>-->
 
 </android.support.constraint.ConstraintLayout>

@@ -44,7 +44,6 @@ import com.google.android.gms.maps.model.Marker
 import cs.msuconnectandroid.R.id.drawer_layout
 import cs.msuconnectandroid.R.id.toolbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
 
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
     override fun onCreate(savedInstanceState: Bundle?) {
         // restore savedInstanceState
         super.onCreate(savedInstanceState)
-        // if user is not authenticated redirect to Login Activity, else load Main Activity
+        // TODO: if user is not authenticated redirect to Login Activity, else load Main Activity
 //        if (mAuth.currentUser == null) {
 //            val intent = Intent(this, Login::class.java)
 //            startActivity(intent)
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 //            setContentView(R.layout.activity_main)
 //        }
 
-        listenMessages()
+//        listenMessages()
         setContentView(R.layout.activity_main)
         setSupportActionBar(this.toolbar)
         val toggle = ActionBarDrawerToggle(
@@ -177,6 +176,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                 supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.content_main, Profile())
+                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .show(Profile())
                         .commit()
             }
             R.id.main_DrawerNav_Settings -> {
@@ -227,7 +228,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+//                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
     }
@@ -309,6 +310,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        db.collection("Maps")
+                .addSnapshotListener { documentSnapshot, error ->
+                    if (error != null) {
+                        //Manage error
+                    } else if (documentSnapshot != null) {
+                        //Manage our documentSnapshot
+                        val pepsi = LatLng(39.746627, -105.010654)
+                        mMap.addMarker(MarkerOptions().position(pepsi).title("Marker in Pepsi"))
+                    }
+                }
 
 
         val aheu = PolygonOptions()
