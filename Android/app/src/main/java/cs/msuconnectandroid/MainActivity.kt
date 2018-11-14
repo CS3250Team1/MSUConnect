@@ -37,15 +37,19 @@ import android.support.annotation.RawRes
 import android.util.Log
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.widget.Toast
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.PolygonOptions
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.tasks.Tasks
 import cs.msuconnectandroid.R.id.drawer_layout
 import cs.msuconnectandroid.R.id.toolbar
+import cs.msuconnectandroid.MSUConnectObjects.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
+import com.google.firebase.firestore.GeoPoint
 
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener,
@@ -81,6 +85,39 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         private const val REQUEST_CHECK_SETTINGS = 2
     }
 
+
+
+    private fun getBuilding(): BuildingDataClass? {
+        return try {
+            //Get "PublicProfile" collection reference
+            val aheu_buildingDocRef = db.collection("Maps")
+                    .document("DoY34y18iX4JDNx6b5OK")
+                    .collection("buildings")
+                    .document("YMj99jTFTyFbhwh7Mkdw")
+//            val aheu_buildingDocRef = db.collection("test")
+//                    .document("me")
+
+            val document = Tasks.await(aheu_buildingDocRef.get())
+            //Check if data exists
+            if (document.exists()) {
+                //Cast the given DocumentSnapshot to our POJO class
+                val aheuBuilding = document.toObject(BuildingDataClass::class.java)
+                aheuBuilding
+
+            } else null
+            //Task successful
+        } catch (e: Throwable) {
+            //Manage error
+            Log.e("Error", "CAN NOT FIND AHEC")
+            Log.e("Error", e.toString())
+            val text = "Error getting data!"
+            val duration = Toast.LENGTH_SHORT
+            val toast = Toast.makeText(applicationContext, text, duration)
+            toast.show()
+            null
+        }
+    }
+
     // Activity cycle - OnCreate Method loads when Activity is ready
     override fun onCreate(savedInstanceState: Bundle?) {
         // restore savedInstanceState
@@ -94,7 +131,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 //            setContentView(R.layout.activity_main)
 //        }
 
-//        listenMessages()
+        Log.i("FIND ME LOG", "helllo message")
         setContentView(R.layout.activity_main)
         setSupportActionBar(this.toolbar)
         val toggle = ActionBarDrawerToggle(
@@ -228,7 +265,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-//                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
     }
@@ -310,76 +347,73 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-        db.collection("Maps")
-                .addSnapshotListener { documentSnapshot, error ->
-                    if (error != null) {
-                        //Manage error
-                    } else if (documentSnapshot != null) {
-                        //Manage our documentSnapshot
-                        val pepsi = LatLng(39.746627, -105.010654)
-                        mMap.addMarker(MarkerOptions().position(pepsi).title("Marker in Pepsi"))
-                    }
-                }
+        val aheuData = getBuilding()
 
 
         val aheu = PolygonOptions()
         aheu.fillColor(Color.RED)
         aheu.clickable(true)
-        aheu.add(LatLng(39.743115, -105.006219))
-        aheu.add(LatLng(39.743922, -105.006919))
-        aheu.add(LatLng(39.744289, -105.005972))
-        aheu.add(LatLng(39.743434, -105.005331))
-        var aheuPL = googleMap!!.addPolygon(aheu)
+        if (aheuData != null) {
+            aheuData.markers.forEachIndexed{ index: Int, geoPoint: GeoPoint ->
+                aheu.add(LatLng(geoPoint.latitude, geoPoint.longitude))
+                mMap.addMarker(MarkerOptions().position(LatLng(geoPoint.latitude, geoPoint.longitude)))
 
-        val tivoli = PolygonOptions()
-        tivoli.fillColor(Color.RED)
-        tivoli.clickable(true)
-        tivoli.add(LatLng(39.74453774, -105.00595106))
-        tivoli.add(LatLng(39.74548642, -105.00667526))
-        tivoli.add(LatLng(39.74596076, -105.00569894))
-        tivoli.add(LatLng(39.74492959, -105.00493182))
-        var tivoliPL = googleMap!!.addPolygon(tivoli)
+                var aheuPL = googleMap!!.addPolygon(aheu)
+            }
+        }
+//        aheu.add(LatLng(aheuData.markers[0].latitude, aheuData.markers[0].longitude))
+//        aheu.add(LatLng(39.743922, -105.006919))
+//        aheu.add(LatLng(39.744289, -105.005972))
+//        aheu.add(LatLng(39.743434, -105.005331))
 
-        val msub = PolygonOptions()
-        msub.fillColor(Color.RED)
-        msub.clickable(true)
-        msub.add(LatLng(39.74350294, -105.00504351))
-        msub.add(LatLng(39.74373393, -105.00522322))
-        msub.add(LatLng(39.7437793, -105.00512398))
-        msub.add(LatLng(39.74408041, -105.00537879))
-        msub.add(LatLng(39.7440723, -105.00542902))
-        msub.add(LatLng(39.74409756, -105.00544981))
-        msub.add(LatLng(39.7441749, -105.00529357))
-        msub.add(LatLng(39.74438269, -105.00545868))
-        msub.add(LatLng(39.744591, -105.004995))
-        msub.add(LatLng(39.74445189, -105.00487509))
-        msub.add(LatLng(39.74440011, -105.00496103))
-        msub.add(LatLng(39.74434855, -105.00491946))
-        msub.add(LatLng(39.74442434, -105.00474981))
-        msub.add(LatLng(39.74412612, -105.00451861))
-        msub.add(LatLng(39.74387582, -105.00505081))
-        msub.add(LatLng(39.74359779, -105.00483881))
-        var msubPL = googleMap!!.addPolygon(msub)
-
-        val aero = PolygonOptions()
-        aero.fillColor(Color.RED)
-        aero.clickable(true)
-        aero.add(LatLng(39.744748, -105.008936))
-        aero.add(LatLng(39.744781, -105.008989))
-        aero.add(LatLng(39.744748, -105.009032))
-        aero.add(LatLng(39.744863, -105.009123))
-        aero.add(LatLng(39.744876, -105.009102))
-        aero.add(LatLng(39.744946, -105.009182)) //
-        aero.add(LatLng(39.744971, -105.009135))
-        aero.add(LatLng(39.744991, -105.009172))
-        aero.add(LatLng(39.745428, -105.008561)) //
-        aero.add(LatLng(39.745362, -105.008470))
-        aero.add(LatLng(39.745354, -105.008486))
-        aero.add(LatLng(39.745152, -105.008250))
-        aero.add(LatLng(39.745094, -105.008320))
-        aero.add(LatLng(39.745144, -105.008374))
-        var aeroPL = googleMap!!.addPolygon(aero)
+//        val tivoli = PolygonOptions()
+//        tivoli.fillColor(Color.RED)
+//        tivoli.clickable(true)
+//        tivoli.add(LatLng(39.74453774, -105.00595106))
+//        tivoli.add(LatLng(39.74548642, -105.00667526))
+//        tivoli.add(LatLng(39.74596076, -105.00569894))
+//        tivoli.add(LatLng(39.74492959, -105.00493182))
+//        var tivoliPL = googleMap!!.addPolygon(tivoli)
+//
+//        val msub = PolygonOptions()
+//        msub.fillColor(Color.RED)
+//        msub.clickable(true)
+//        msub.add(LatLng(39.74350294, -105.00504351))
+//        msub.add(LatLng(39.74373393, -105.00522322))
+//        msub.add(LatLng(39.7437793, -105.00512398))
+//        msub.add(LatLng(39.74408041, -105.00537879))
+//        msub.add(LatLng(39.7440723, -105.00542902))
+//        msub.add(LatLng(39.74409756, -105.00544981))
+//        msub.add(LatLng(39.7441749, -105.00529357))
+//        msub.add(LatLng(39.74438269, -105.00545868))
+//        msub.add(LatLng(39.744591, -105.004995))
+//        msub.add(LatLng(39.74445189, -105.00487509))
+//        msub.add(LatLng(39.74440011, -105.00496103))
+//        msub.add(LatLng(39.74434855, -105.00491946))
+//        msub.add(LatLng(39.74442434, -105.00474981))
+//        msub.add(LatLng(39.74412612, -105.00451861))
+//        msub.add(LatLng(39.74387582, -105.00505081))
+//        msub.add(LatLng(39.74359779, -105.00483881))
+//        var msubPL = googleMap!!.addPolygon(msub)
+//
+//        val aero = PolygonOptions()
+//        aero.fillColor(Color.RED)
+//        aero.clickable(true)
+//        aero.add(LatLng(39.744748, -105.008936))
+//        aero.add(LatLng(39.744781, -105.008989))
+//        aero.add(LatLng(39.744748, -105.009032))
+//        aero.add(LatLng(39.744863, -105.009123))
+//        aero.add(LatLng(39.744876, -105.009102))
+//        aero.add(LatLng(39.744946, -105.009182)) //
+//        aero.add(LatLng(39.744971, -105.009135))
+//        aero.add(LatLng(39.744991, -105.009172))
+//        aero.add(LatLng(39.745428, -105.008561)) //
+//        aero.add(LatLng(39.745362, -105.008470))
+//        aero.add(LatLng(39.745354, -105.008486))
+//        aero.add(LatLng(39.745152, -105.008250))
+//        aero.add(LatLng(39.745094, -105.008320))
+//        aero.add(LatLng(39.745144, -105.008374))
+//        var aeroPL = googleMap!!.addPolygon(aero)
 
         // Add a marker in Sydney and move the camera
         val msu = LatLng(39.743064, -105.006219)
@@ -420,6 +454,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                         //Manage error
                     } else if (documentSnapshot != null) {
                         //Manage our documentSnapshot
+
                     }
                 }
     }
