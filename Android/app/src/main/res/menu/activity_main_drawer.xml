@@ -5,34 +5,38 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/main_DrawerNav_Map"
+            android:icon="@drawable/ic_map_black_24dp"
+            android:title="@string/main_DrawerNav_Map" />
+        <item
             android:id="@+id/main_DrawerNav_Profile"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_face_black_24dp"
             android:title="@string/main_DrawerNav_Profile" />
         <item
             android:id="@+id/main_DrawerNav_Settings"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/main_DrawerNav_Settings" />
         <item
-            android:id="@+id/main_DrawerNav_Map"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/main_DrawerNav_Map" />
+            android:id="@+id/login"
+            android:icon="@drawable/ic_check_circle_black_24dp"
+            android:title="Login" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/notDone" />
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_check_circle_black_24dp"
+            android:title="Logout" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/notDone" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/notDone" />
-        </menu>
-    </item>
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="@string/notDone" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="@string/notDone" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>

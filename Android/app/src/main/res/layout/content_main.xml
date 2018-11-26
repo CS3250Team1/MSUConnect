@@ -8,8 +8,18 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <include layout="@layout/fragment_maps"
-        android:id="@+id/content_main"
-        />
+
+
+
+    <!--<include layout="@layout/fragment_maps"-->
+        <!--android:id="@+id/content_main"-->
+        <!--/>-->
+
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

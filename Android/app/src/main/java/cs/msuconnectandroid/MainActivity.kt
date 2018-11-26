@@ -2,6 +2,8 @@ package cs.msuconnectandroid
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Fragment
+import android.app.FragmentManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
@@ -44,7 +46,6 @@ import com.google.android.gms.maps.model.PolygonOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.tasks.Tasks
 import cs.msuconnectandroid.R.id.drawer_layout
-import cs.msuconnectandroid.R.id.toolbar
 import cs.msuconnectandroid.MSUConnectObjects.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -84,8 +85,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
     }
-
-
 
     private fun getBuilding(): BuildingDataClass? {
         return try {
@@ -131,21 +130,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
 //            setContentView(R.layout.activity_main)
 //        }
 
-        Log.i("FIND ME LOG", "helllo message")
         setContentView(R.layout.activity_main)
-        setSupportActionBar(this.toolbar)
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-        onNavigationItemSelected( nav_view.menu.getItem(2))
+        onNavigationItemSelected( nav_view.menu.getItem(1))
 
         // OM
         var locations = CampusLocations()
         var scraper = CalendarScrapper()
         mEvents = scraper.getEvents(readRaw(R.raw.msu_event), locations)
         // ~ OM
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
@@ -174,77 +168,34 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         }
     }
 
-    // Set up Top Nav Bar menu
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    // Top Nav Bar item actions
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item != null) {
-//            when {
-//                item.itemId == R.id.discover -> {
-//                    setContentView(R.layout.activity_discover);
-//                }
-//                item.itemId == R.id.logout -> {
-//                    val intent = Intent(this@MainActivity, Login::class.java)
-//                    startActivity(intent)
-//                    FirebaseAuth.getInstance().signOut()
-//                }
-//                item.itemId == R.id.profile -> {
-//                    setContentView(R.layout.fragment_profile);
-//                }
-//                item.itemId == R.id.settings -> {
-//                    setContentView(R.layout.fragment_settings);
-//                }
-//            }
-        }
-        return true
-    }
 
     // Side Nav Bar actions
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.main_DrawerNav_Profile -> {
-                // TODO:
-                supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.content_main, Profile())
-                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .show(Profile())
-                        .commit()
-            }
-            R.id.main_DrawerNav_Settings -> {
-                supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.content_main, Settings())
-                        .commit()
-            }
-            // TODO: Check for errors in supportFragmentManager
             R.id.main_DrawerNav_Map -> {
-//                supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.content_main, startWithMap())
-//                        .commitNow()
-//                supportFragmentManager
-//                        .beginTransaction()
-//                        .add(R.id.map, SupportMapFragment.newInstance())
-//                        .commitNow()
-//
+                var mapsFragment = BlankFragment()
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment, mapsFragment)
+                        .commitNow()
 //                if(supportFragmentManager.findFragmentById(R.id.map)==null)Log.d("MRB", "No Map")
 //                else Log.d("MRB", "Found map")
             }
-            R.id.nav_slideshow -> {
-
+            R.id.main_DrawerNav_Profile -> {
+                // TODO:
+//                supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.content_main, Profile())
+//                        .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+//                        .show(Profile())
+//                        .commit()
             }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
+            R.id.main_DrawerNav_Settings -> {
+//                supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.content_main, Settings())
+//                        .commit()
             }
         }
 
@@ -459,5 +410,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                 }
     }
 
+    public override fun onAttachFragment(fragment: Fragment?) {
+        super.onAttachFragment(fragment)
 
+    }
 }
