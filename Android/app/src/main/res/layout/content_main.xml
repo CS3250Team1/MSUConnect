@@ -11,9 +11,9 @@
 
 
 
-    <!--<include layout="@layout/fragment_maps"-->
-        <!--android:id="@+id/content_main"-->
-        <!--/>-->
+    <include layout="@layout/fragment_maps"
+        android:id="@+id/content_main"
+        />
 
     <FrameLayout
         android:id="@+id/fragment"
