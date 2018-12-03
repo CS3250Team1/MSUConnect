@@ -6,10 +6,6 @@
                 android:icon="@drawable/ic_menu_signin"
                 android:title="@string/login"/>
         <item
-                android:id="@+id/profile"
-                android:icon="@drawable/ic_menu_settings"
-                android:title="@string/profile"/>
-        <item
                 android:id="@+id/maps"
                 android:icon="@drawable/ic_menu_map"
                 android:title="@string/maps"/>

@@ -105,7 +105,6 @@ class MainActivity : AppCompatActivity() {
                 loginFrag.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, loginFrag).commit()
             }
-            R.id.profile -> { supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, Profile()).commit() }
             R.id.settings -> { supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, Settings()).commit() }
             R.id.maps -> {
                 updateUI(true)
