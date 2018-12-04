@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import java.util.*
 
@@ -41,7 +40,8 @@ class Settings : Fragment() {
             val rtnStartMonth = calMonth
             val rtnStartDay = calDay
             val rtnStartYear = calYear
-            val rtnStartDate = calendarView.getDate()
+            //var rtnStartDate = Calendar.getInstance().set(calYear, calMonth, calDay,0, 0)
+            val rtnStartDate = Date(view.calendarView.getDate())
         }
 
         //Set End Date
@@ -50,7 +50,8 @@ class Settings : Fragment() {
             val rtnEndMonth = calMonth
             val rtnEndDay = calDay
             val rtnEndYear = calYear
-            val rtnEndDate = calendarView.getDate()
+            //var rtnEndDate = Date(Calendar.getInstance().set(calYear, calMonth, calDay,0, 0))
+            val rtnEndDate = Date(view.calendarView.getDate())
         }
         return view
     }
