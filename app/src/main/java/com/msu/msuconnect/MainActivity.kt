@@ -15,6 +15,7 @@ import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_main.view.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +23,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mDrawerLayout : DrawerLayout
     private lateinit var mNaviBar : NavigationView
     private lateinit var mJSI : JSInterface
-    public var mWebViewShown = false
+    var mWebViewShown = false
+    var mStartDate : Date? = null
+    var mEndDate : Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +98,7 @@ class MainActivity : AppCompatActivity() {
 
     public fun changeFragment(newFragmentId : Int)
     {
+        showWebView(false, "") // turns off webview
         when(newFragmentId){
             R.id.login -> { supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, LoginFragment()).commit() }
             R.id.logout -> {
@@ -110,6 +114,7 @@ class MainActivity : AppCompatActivity() {
                 updateUI(true)
                 var mapFrag = MapsFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, mapFrag).commit()
+                mapFrag.setStartEndDate(mStartDate, mEndDate)
                 mapFrag.getMapAsync(mapFrag)
             }
         }

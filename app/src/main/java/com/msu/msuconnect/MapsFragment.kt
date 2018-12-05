@@ -14,22 +14,21 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.*
 
 class MapsFragment : SupportMapFragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     // location stuff
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var mEvents: List<CampusEvent>
-
+    private var mEvents: List<CampusEvent> = emptyList()
+    private var mStartDate : Date? = null
+    private var mEndDate : Date? = null
     private lateinit var mHtml : String
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(p0: Bundle?) {
         super.onCreate(p0)
-        var locations = CampusLocations()
-        var scraper = CalendarScrapper()
-        mEvents = scraper.getEvents(readRaw(R.raw.msu_event), locations)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
     }
 
@@ -39,6 +38,10 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback {
         val msu = LatLng(39.743064, -105.006219)
         val zoomLevel = 16.0f
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(msu, zoomLevel))
+
+        val locations = CampusLocations()
+        val scraper = CalendarScrapper()
+        mEvents = scraper.getEvents(readRaw(R.raw.msu_event), locations, mStartDate, mEndDate)
 
         for(event in mEvents)
         {
@@ -90,5 +93,10 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback {
 
     fun readRaw(@RawRes resourceId: Int): String {
         return resources.openRawResource(resourceId).bufferedReader(Charsets.UTF_8).use { it.readText() }
+    }
+
+    fun setStartEndDate(startDate : Date?, endDate : Date?) {
+        mStartDate = startDate
+        mEndDate = endDate
     }
 }

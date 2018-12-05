@@ -41,7 +41,9 @@ class Settings : Fragment() {
             val rtnStartDay = calDay
             val rtnStartYear = calYear
             //var rtnStartDate = Calendar.getInstance().set(calYear, calMonth, calDay,0, 0)
-            val rtnStartDate = Date(view.calendarView.getDate())
+            var cal = Calendar.getInstance()
+            cal.set(calYear, calMonth - 1, calDay)
+            (this.activity as MainActivity).mStartDate = cal.time
         }
 
         //Set End Date
@@ -51,7 +53,9 @@ class Settings : Fragment() {
             val rtnEndDay = calDay
             val rtnEndYear = calYear
             //var rtnEndDate = Date(Calendar.getInstance().set(calYear, calMonth, calDay,0, 0))
-            val rtnEndDate = Date(view.calendarView.getDate())
+            var cal = Calendar.getInstance()
+            cal.set(calYear, calMonth - 1, calDay)
+            (this.activity as MainActivity).mEndDate = cal.time
         }
         return view
     }

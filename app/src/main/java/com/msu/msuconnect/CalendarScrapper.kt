@@ -5,7 +5,7 @@ import java.text.DateFormat
 import java.util.*
 
 class CalendarScrapper {
-    fun getEvents(html : String, locations: CampusLocations) : List<CampusEvent> {
+    fun getEvents(html : String, locations: CampusLocations, startDate : Date?, endDate : Date?) : List<CampusEvent> {
         var events = ArrayList<CampusEvent>()
         // JSoup is the Java parser used to parse html
         var doc = Jsoup.parse(html)
@@ -20,9 +20,10 @@ class CalendarScrapper {
             var location = ele.getElementsByClass("twLocation")
             var dateStrings = date.text().split(" ")
             // create a new CampusEvent and add it to our list
-            var month = 0
-            if(dateStrings[0].contains("Nov")) month = 10 else month = 11
-            events.add(CampusEvent(description.text(), eventID.toInt(), location.text(), locations, month, dateStrings[1].toInt()))
+            var month = if(dateStrings[0].contains("Nov")) 10 else 11
+            var event = CampusEvent(description.text(), eventID.toInt(), location.text(), locations, month, dateStrings[1].toInt())
+            if(startDate == null || event.getEventDate()!! in startDate..endDate!!)
+                events.add(event)
         }
         return events
     }

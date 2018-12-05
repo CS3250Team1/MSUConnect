@@ -13,6 +13,7 @@ class CampusEvent{
     fun getLatLng() : LatLng? {return mEventLatLng}
     fun getTitle() : String {return mEventTitle}
     fun getEventID() : Int {return mEventID}
+    fun getEventDate() : Date? {return mEventDate}
     constructor(mEventTitle: String, mEventID: Int, mEventLocation: String, locations : CampusLocations, month : Int, day : Int)
     {
         this.mEventTitle = mEventTitle
