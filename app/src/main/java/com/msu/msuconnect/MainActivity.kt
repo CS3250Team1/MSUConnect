@@ -9,12 +9,9 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.FrameLayout
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.activity_main.view.*
 import java.util.*
 
 
@@ -110,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, loginFrag).commit()
             }
             R.id.settings -> { supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, Settings()).commit() }
+            R.id.about -> { supportFragmentManager.beginTransaction().replace(R.id.fragmentContent, AboutFragment()).commit() }
             R.id.maps -> {
                 updateUI(true)
                 var mapFrag = MapsFragment()

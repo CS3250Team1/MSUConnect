@@ -14,10 +14,14 @@
                 android:icon="@drawable/ic_menu_settings"
                 android:title="@string/settings"/>
         <item
-                android:id="@+id/logout"
-                android:icon="@drawable/ic_menu_signout"
-                android:title="@string/logout"
-                android:visible="false" />
+                android:id="@+id/about"
+                android:icon="@drawable/ic_menu_info"
+                android:title="@string/about"/>
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_menu_signout"
+            android:title="@string/logout"
+            android:visible="false" />
     </group>
 
 </menu>

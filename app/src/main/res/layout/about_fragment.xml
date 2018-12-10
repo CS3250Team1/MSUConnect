@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:stretchColumns="1">
+
+    <TableRow>
+        <TextView
+                android:text="@string/about"
+                android:padding="3dip"
+                android:textSize="24sp"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="@string/aboutInfo"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+                android:text="@string/austin"
+                android:padding="3dip" />
+        <TextView
+                android:text="@string/austinGit"
+                android:padding="3dip"
+                android:autoLink="web" />
+    </TableRow>
+    <TableRow>
+        <TextView
+                android:text="@string/brad"
+                android:padding="3dip" />
+        <TextView
+                android:text="@string/bradGit"
+                android:padding="3dip"
+                android:autoLink="web" />
+    </TableRow>
+    <TableRow>
+        <TextView
+                android:text="@string/mich"
+                android:padding="3dip" />
+        <TextView
+                android:text="@string/michGit"
+                android:padding="3dip"
+                android:autoLink="web" />
+    </TableRow>
+    <TableRow>
+        <TextView
+                android:text="@string/omar"
+                android:padding="3dip" />
+        <TextView
+                android:text="@string/omarGit"
+                android:padding="3dip"
+                android:autoLink="web" />
+    </TableRow>
+    <TableRow>
+        <TextView
+                android:text="@string/ray"
+                android:padding="3dip" />
+        <TextView
+                android:text="@string/rayGit"
+                android:padding="3dip"
+                android:autoLink="web" />
+    </TableRow>
+    <TableRow>
+        <TextView
+                android:text="@string/rin"
+                android:padding="3dip" />
+        <TextView
+                android:text="@string/rinGit"
+                android:padding="3dip"
+                android:autoLink="web" />
+    </TableRow>
+</TableLayout>

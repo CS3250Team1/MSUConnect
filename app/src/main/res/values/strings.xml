@@ -5,6 +5,22 @@
     <string name="profile">Profile</string>
     <string name="maps">Maps</string>
     <string name="logout">Logout</string>
+    <string name="about">About</string>
+    <string name="aboutInfo">MSUConnect is an application that pulls in the latest MSUDenver events and maps them into the correct buildings.
+        \nThis application was created by 6 students at MSU Denver for a software development and tools class.\nAny and all questions should be directed towards any of the following members:</string>
+    <string name="versionName">1.0</string>
+    <string name="austin">Austin Gailey</string>
+    <string name="austinGit">https://github.com/AustinGailey</string>
+    <string name="brad">Bradley Isaacs</string>
+    <string name="bradGit">https://github.com/bradkIsaacs</string>
+    <string name="mich">Michael Boykin</string>
+    <string name="michGit">https://github.com/Boykinmr</string>
+    <string name="omar">Omar Martinez</string>
+    <string name="omarGit">https://github.com/LumiumEngine</string>
+    <string name="ray">Raymond Ortiz</string>
+    <string name="rayGit">https://github.com/delusionallyhere</string>
+    <string name="rin">Rin Isobe</string>
+    <string name="rinGit">https://github.com/kobmofo</string>
 
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
